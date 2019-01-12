@@ -134,3 +134,9 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Kolkata'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'casualdeepak@gmail.com'
+EMAIL_HOST_PASSWORD = 'oueqaigczxlbtuxj'
+EMAIL_PORT = 587

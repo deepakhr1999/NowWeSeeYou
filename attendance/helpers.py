@@ -1,6 +1,33 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
 import re
+from django.core.mail import send_mail
+from NowWeSeeYou.settings import EMAIL_HOST_USER 
+
+def notify(filename, course):
+	#reads a file that has row as filename
+	file = open(filename, 'r')
+	present_email = []
+	course.classes_held += 1
+	course.save()
+	for email in file:
+		present_email.append(email)
+	#users 
+	all_students = course.people_set.all().filter(employment = 'ST')
+	absentees = []
+	for student in all_students:
+		#take attendance
+		if student.email in present_email:
+			a1 = Attendance(course = course, student = student, isPresent = True)
+		else:
+			a1 = Attendance(course = course, student = student, isPresent = False)
+			absentees.append(student.email)
+		a1.save()
+	send_mail(f'Absent for {course}',
+			'You were absent for this class',
+			EMAIL_HOST_USER,
+			absentees)
+
 def prepareData(tas, students, profs):
 	tas = list(map(int,tas))
 	profs = list(map(int,profs))

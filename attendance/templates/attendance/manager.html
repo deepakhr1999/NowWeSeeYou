@@ -16,25 +16,39 @@ body{
 {% if user.is_authenticated %}
 	<div class="card" style="width: 18rem; animation-name: fadeInUp;">
 	  <div class="card-body alert-info">
-	    <h5 class="card-title">{{user.username}}</h5>
+	    <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
 	    <h6 class="card-subtitle mb-2 text-muted">{{user.profile.get_employment_display}}</h6>
 	    <p class="card-text">
-	    	Classes bunked: over 9000
+			{% if user.is_staff %}
+			<form>
+				{% csrf_token %}
+				<button class="btn btn-info">Take attendance</button>
+			</form>
+			{% endif %}
 	    </p>
 	  </div>
 	</div>
 {% endif %}
 {% if courses %}
+	<div class="w-100">
+	<h3 style="margin: 20px" style="animation-name: fadeInRight;">
+		Associated Courses
+	</h3>
 	{% for course in courses %}
-	<div class="w-100 card" style="animation-name: fadeInRight;">
+	<div class="w-75 card" style="animation-name: fadeInRight;">
 	  <div class="card-body alert-success">
 	    <h5 class="card-title">{{course}}</h5>
-	    <h6 class="card-subtitle mb-2 text-muted">Attendance</h6>
-	    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	    <h6 class="card-subtitle mb-2 text-muted">
+	    	Classes held till now: {{course.classes_held}}
+	    </h6>
+	    <p class="card-text">
+	    	Your attendance:
+	    </p>
 	    <div class="progress">
-			<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+			<div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 80%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
 	  </div>
+	</div>
 	</div>
 	{% endfor %}
 {% endif %}

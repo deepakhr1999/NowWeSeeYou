@@ -10,6 +10,9 @@ def home(request):
 	context = {}
 	if request.user.is_authenticated:
 		context['courses'] = request.user.course_set.all()
+		if request.method == 'POST' and request.user.is_staff():
+			course = Course.objects.get(name = 'Calculus')
+			notify('real_time_count.txt', course)
 	return render(request, 'attendance/manager.html', context)
 
 def courseCreate(request):
