@@ -17,6 +17,9 @@ class Course(models.Model):
 	def __str__(self):
 		return f'{self.code} {self.name}'
 
+	class Meta:
+		ordering = ['name']
+
 
 class Attendance(models.Model):
 	course = models.ForeignKey(Course, on_delete = models.CASCADE)

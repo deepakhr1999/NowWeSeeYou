@@ -9,10 +9,21 @@ from .helpers import *
 def home(request):
 	context = {}
 	if request.user.is_authenticated:
-		context['courses'] = request.user.course_set.all()
+		temp = request.user.course_set.all()	
+		context['courses'] = []
 		if request.method == 'POST':
 			course = Course.objects.get(name = 'Calculus')
 			notify('real_time_count.txt', course)
+		for course in temp:
+			#get attendance of request.user
+			n = request.user.attendance_set.all().filter(course = course, isPresent=True).count()
+			frac = 100*n/course.classes_held
+			color = 'success'
+			if frac > 80 and frac<85:
+				color = 'warning'
+			elif frac < 80:
+				color = 'danger'
+			context['courses'].append((course, round(frac), n, color))
 	return render(request, 'attendance/manager.html', context)
 
 def courseCreate(request):
