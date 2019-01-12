@@ -1,0 +1,70 @@
+{% extends 'academics/bootstrap.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style type="text/css">
+	.card{
+		margin: 2rem;
+		width: 50rem;
+		position: relative;
+		animation: fadeIn 1s;
+	}
+	.card-text{
+		padding: 0.75rem;
+		min-height: 20rem;
+	}
+	#notes-home{
+		position: absolute;
+		top: 2em;
+		right: 2.5em;
+		animation: fadeInUp 2.3s;
+		z-index: 10;
+	}
+	@media only screen and (max-width: 900px){
+		.card{
+			margin: 0.5rem;
+		}
+		#notes-home{
+			opacity: 0.6;
+		}
+	}
+</style>
+	<div class="m-0">
+		{% if messages %}
+			{% for message in messages %}	
+			<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+				{{ message }}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+	<div class="m-0 d-flex justify-content-center align-items-start" style="position: relative;">
+	<a id="notes-home" href="{% url 'notes-home' %}">
+		<img id="plus" src="{% static 'notes/back_blue.png' %}" width="66px">
+	</a>
+	<div class="card">
+	  <div class="card-body alert-{{ object.tag }}">
+    	<div class="d-flex justify-content-between align-items-baseline">
+	    	<h5 class="card-title">{{object}}</h5>
+	    	<h6 class="card-subtitle mb-2">
+		    	{{ object.date_posted|date:'M-d, D h:ia'}}
+		    </h6>
+    	</div>
+
+	    <p class="card-text">
+	    	{{ object.content|linebreaksbr }}
+	    </p>
+
+	    <a href="{% url 'notes-update' pk=object.pk %}" class="btn btn-info card-link">Update</a>
+	    <a 	href="{% url 'notes-delete' pk=object.pk %}" 
+	    	onclick="confirm('Sure you want to delete this note?')"
+	     	class="btn btn-danger card-link">
+	    		Delete
+	    </a>
+	  </div>
+	</div>
+	</div>
+{% endblock %}
