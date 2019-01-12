@@ -3,6 +3,7 @@ from django.db.models import Q
 import re
 from django.core.mail import send_mail
 from NowWeSeeYou.settings import EMAIL_HOST_USER 
+from .models import *
 
 def notify(filename, course):
 	#reads a file that has row as filename
@@ -11,9 +12,9 @@ def notify(filename, course):
 	course.classes_held += 1
 	course.save()
 	for email in file:
-		present_email.append(email)
+		present_email.append(email.rstrip())
 	#users 
-	all_students = course.people_set.all().filter(employment = 'ST')
+	all_students = course.people.all().filter(profile__employment = 'ST')
 	absentees = []
 	for student in all_students:
 		#take attendance

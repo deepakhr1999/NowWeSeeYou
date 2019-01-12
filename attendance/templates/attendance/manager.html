@@ -20,7 +20,7 @@ body{
 	    <h6 class="card-subtitle mb-2 text-muted">{{user.profile.get_employment_display}}</h6>
 	    <p class="card-text">
 			{% if user.is_staff %}
-			<form>
+			<form method="POST">
 				{% csrf_token %}
 				<button class="btn btn-info">Take attendance</button>
 			</form>
