@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .forms import *
 # Create your views here.
 def register(request):
@@ -18,11 +19,12 @@ def register(request):
 			if pform.is_valid():	
 				pform.save()
 				messages.success(request, f'Account for {user.username}, {user.profile.rollno} has been created')
-				return redirect('login')
+				return redirect('register')
 			else:
-				messages.info(request, 'pform not valid')
+				messages.info(request, 'Profile form not valid')
 
 		else:
-			messages.info(request, 'uform not valid')
+			messages.info(request, 'User form not valid')
 
 	return render(request, 'user/register.html', context)
+

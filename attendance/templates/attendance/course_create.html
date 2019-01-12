@@ -15,7 +15,10 @@ body{
 .checkbox{
 	border: 1px solid #ced4da;
 	overflow-y: auto;
-	height: 150px;
+	height: 15rem;
+}
+@media only screen and (max-width: 900px) {
+
 }
 </style>
 <div class="card">
@@ -32,36 +35,41 @@ body{
 			<label>Code*</label>
 			<input type="text" name="code" class="form-control" required>
 		</div>
-		
-		<label>Professor(s)*</label>
-		<div class="form-group checkbox rounded">
-			{% for prof in profs %}
-			<div class="input-group mb-0 border-bottom">
-			  <div class="input-group-prepend">
-			    <div class="input-group-text">
-			      <input type="checkbox" name="profs" style="margin:0.2rem; width: 1.25rem; height: 1.25rem" value = '{{prof.id}}'>
-			    </div>
-		      <label class='m-2' >
-		      	{{prof.first_name}} {{ prof.last_name }}, {{prof.email}}
-		      </label>
+		<div class="d-flex justify-content-around flex-wrap">
+			<div class="p-2 w-50 form-group">
+				<label>Professor(s)*</label>
+				<div class="w-100 form-group checkbox rounded">
+					{% for prof in profs %}
+					<div class="input-group mb-0 border-bottom">
+					  <div class="input-group-prepend">
+					    <div class="input-group-text">
+					      <input type="checkbox" name="profs" style="margin:0.2rem; width: 1.25rem; height: 1.25rem" value = '{{prof.id}}'>
+					    </div>
+				      <label class='m-2' >
+				      	{{prof.first_name}} {{ prof.last_name }}, {{prof.email}}
+				      </label>
+					</div>
+					</div>
+					{% endfor %}
+				</div>
 			</div>
+			<div class="p-2 w-50 form-group">
+				<label>Teaching Assistant(s)*</label>
+				<div class="w-100 form-group checkbox rounded">
+					{% for ta in tas %}
+					<div class="input-group mb-0 border-bottom">
+					  <div class="input-group-prepend">
+					    <div class="input-group-text">
+					      <input type="checkbox" name="tas" style="margin:0.2rem; width: 1.25rem; height: 1.25rem" value = '{{ta.id}}'>
+					    </div>
+				      <label class='m-2' >
+				      	{{ta.first_name}} {{ ta.last_name }}, {{ta.profile.rollno}}
+				      </label>
+					</div>
+					</div>
+					{% endfor %}
+				</div>
 			</div>
-			{% endfor %}
-		</div>
-		<label>Teaching Assistant(s)*</label>
-		<div class="form-group checkbox rounded">
-			{% for ta in tas %}
-			<div class="input-group mb-0 border-bottom">
-			  <div class="input-group-prepend">
-			    <div class="input-group-text">
-			      <input type="checkbox" name="tas" style="margin:0.2rem; width: 1.25rem; height: 1.25rem" value = '{{ta.id}}'>
-			    </div>
-		      <label class='m-2' >
-		      	{{ta.first_name}} {{ ta.last_name }}, {{ta.profile.rollno}}
-		      </label>
-			</div>
-			</div>
-			{% endfor %}
 		</div>
 		<div class="form-group">
 		    <label>Students*</label>
@@ -75,5 +83,4 @@ body{
 	</form>
   </div>
 </div>
-
 {% endblock %}

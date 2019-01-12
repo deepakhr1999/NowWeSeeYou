@@ -31,10 +31,21 @@
               Course
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{% url 'course-create' %}">Create</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="{% url 'course-create' %}">Add</a>
+              <a class="dropdown-item" href="{% url 'course-list'%}">View</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Data
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'data-list' category='ST'%}">
+                Students</a>
+              <a class="dropdown-item" href="{% url 'data-list' category='TA'%}">
+                Teaching Assistants</a>
+              <a class="dropdown-item" href="{% url 'data-list' category='PR'%}">
+                Professors</a>
             </div>
           </li>
           <li class="nav-item">
@@ -53,6 +64,16 @@
         </div>
       </div>
     </nav>
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+    {% endif %}
     {% block content %}
     {% endblock %}
     <!-- Optional JavaScript -->

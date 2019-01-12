@@ -41,13 +41,6 @@ body{
 }
 </style>
 <div class="body w-100 d-flex flex-column justify-content-center">
-	{% if messages %}
-		{% for message in messages %}
-		<div class="alert alert-{{ message.tags }} mb-0">
-			{{ message }}
-		</div>
-		{% endfor %}
-	{% endif %}
 	<div class="card">
 	  <div class="card-body">
 	    <h5 class="card-title">Register User</h5>

@@ -10,6 +10,9 @@ class Course(models.Model):
 	people = models.ManyToManyField(User, blank = True)
 	code = models.CharField(max_length=6, default='code')
 	name = models.CharField(max_length=100, default='Course Name')
+	next_class = models.DateTimeField(blank=True, default = timezone.now)
+	being_held = models.BooleanField(default = False)
+	classes_held = models.IntegerField(default = 0)
 	
 	def __str__(self):
 		return f'{self.code} {self.name}'
